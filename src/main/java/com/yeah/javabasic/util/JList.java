@@ -12,7 +12,7 @@ public class JList {
 	// 1、如果list为空，不管collection是什么，最终list都为空
 	// 2、如果collection为空，最终list都为空
 	public void testRetainAll() {
-		List<String> stringList = new ArrayList<>();
+		List<String> stringList = new ArrayList<String>();
 		List<String> strList2 = Arrays.asList("a", "b", "c");
 		List<String> strList3 = Arrays.asList("c", "d", "e");
 		
