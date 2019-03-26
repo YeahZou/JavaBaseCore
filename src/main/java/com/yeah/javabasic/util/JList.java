@@ -30,7 +30,6 @@ public class JList {
 		
 		String obj = "{\"repo_git_conf\":[{\"repotype\":\"git\",\"repo\":\"http://{{user}}:{{password}}@192.168.0.82:7070/octopus/octopus-proxy.git\",\"gitbranch\":\"release\",\"git.masterBranch\":\"\",\"git.user\":\"\",\"git.password\":\"\"}],\"remote_connect\":[{\"agenttype\":\"agentless\",\"ostype\":\"unix\",\"osport\":\"22\",\"osuser\":\"root\",\"ospwd\":\"\"}]}";
 		JSONObject json = JSONObject.fromObject(obj);
-		json.keys();
 		System.out.println(json.toString(4));
 	}
 }
