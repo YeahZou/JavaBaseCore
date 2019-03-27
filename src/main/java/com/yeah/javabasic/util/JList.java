@@ -8,7 +8,7 @@ import net.sf.json.JSONObject;
 
 public class JList {
 
-	// list.retainAll(collection)方法只保留list中满足此条件的元素：该元素在collection中存在
+	// list.retainAll(collection)方法只保留list中满足此条件的元素：该元素在collection中存在(交集)
 	// 1、如果list为空，不管collection是什么，最终list都为空
 	// 2、如果collection为空，最终list都为空
 	public void testRetainAll() {
