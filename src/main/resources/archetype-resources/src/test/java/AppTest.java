@@ -1,4 +1,4 @@
-package $com.yeah.javabasic;
+package $com.yeah.study.javabase;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
