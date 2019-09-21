@@ -1,11 +1,45 @@
-package com.yeah.javabasic.util;
+package com.yeah.java.base;
 
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+
+import static java.lang.System.out;
+
 public class RegExp {
-	public static void main(String[] args) {
+	public static void parseDBexecIndexFilter(String content, String opt) {
+		String filter = "";
+		String index  = "";
+		if (StringUtils.isBlank(opt)) {
+			return;
+		}
+		
+		if (content != null && !content.trim().equals("")) {
+			String[] lines = content.split("(\n|\r\n)");
+			Pattern p = Pattern.compile("^dbexec.+?-" + opt + "\\s+([^-\\s].*)$");
+			for (String line: lines) {
+				line = line.trim();
+				if (line.equals("") || line.startsWith("#")) {
+					continue;
+				}
+				
+				Matcher m = p.matcher(line);
+				if (m.find() && m.groupCount() == 1) {
+					String valuePattern = m.group(1).startsWith("\"") ? "^\"([^\"]+)\"" : m.group(1).startsWith("\'") ? "^\'([^\']+)\'" : "^(\\S+)";
+					p = Pattern.compile(valuePattern);
+					m = p.matcher(m.group(1));
+					filter = m.find() && m.groupCount() == 1 ? m.group(1) : ""; 
+				}
+			}
+		}
+		
+		System.out.println("filter is " + filter);
+		System.out.println("index is " + index);
+	}
+	
+	public static void appendReplacement() {
 		// 竖线在正则中有特殊含义，需转义
 		String sep = "\\|";
 		String envStr = "|SIT|PRD|";
@@ -52,5 +86,9 @@ public class RegExp {
 		m.appendTail(sb);
 
 		System.out.println(sb.toString());
+	}
+	public static void main(String[] args) {
+		out.println("src/123/234/345/xxx.java".replaceAll("^.*/", ""));
+		out.println("src/123/234/345/xxx.java".replaceAll("^(.+)/[^/]+$", "$1"));
 	}
 }

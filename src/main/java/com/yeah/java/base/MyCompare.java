@@ -1,4 +1,4 @@
-package com.yeah.javabasic.util;
+package com.yeah.java.base;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package com.yeah.javabasic.util;
+package com.yeah.java.base;
 
 /**
  * 变参方法可接收一个数组参数
