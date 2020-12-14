@@ -1,6 +1,7 @@
 package com.yeah.java.base;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,6 +13,7 @@ public class RegExp {
 	public static void parseDBexecIndexFilter(String content, String opt) {
 		String filter = "";
 		String index  = "";
+		
 		if (StringUtils.isBlank(opt)) {
 			return;
 		}
@@ -87,8 +89,44 @@ public class RegExp {
 
 		System.out.println(sb.toString());
 	}
+	
 	public static void main(String[] args) {
-		out.println("src/123/234/345/xxx.java".replaceAll("^.*/", ""));
-		out.println("src/123/234/345/xxx.java".replaceAll("^(.+)/[^/]+$", "$1"));
+	    /*Pattern pattern = Pattern.compile("^[\\w\\W]+?\\s+class\\s+\\w+\\s*\\{[^\\}]+class\\s+\\w+\\s*\\{[^\\;]+?\\s+(\\w+)\\s*\\;[\\w\\W]+\\}");
+	    Matcher matcher = pattern.matcher("public class Test {\n" +
+	            "\n" +
+	            "    private String test;\n" +
+	            "      class InnerClass{\n" +
+	            "          private String test1;\n" +
+	            "          private String test2;\n" +
+	            "      }\n" +
+	            "}");
+
+	    if(matcher.find()){
+	        System.out.println(matcher.group(1));
+	    }
+	    
+	    System.out.println("xxx is: " + "".split("(\n|\r\n)")[0]);*/
+		List<String> fileList = Arrays.asList("src4", "src3/uddi-address.xml", "src5", "src5/uddi-address.xml", "uddi-address.xml");
+		for (int i = 0; i < fileList.size(); i++) {
+			System.out.println(fileList.get(i).split("[\\\\/]")[0]);
+		}
 	}
+	
+	/*public static void main(String[] args) {
+		//out.println("src/123/234/345/xxx.java".replaceAll("^.*", ""));
+		//out.println("src/123/234/345/xxx.java".replaceAll("^(.+)/[^/]+$", "$1"));
+		
+		Pattern p = Pattern.compile("^[\\w\\W]+?\\s+class\\s+\\w+\\s*\\{[^\\}]+class\\s+\\w+\\s*\\{[^\\;]+?\\s+(\\w+)\\s*\\;.*\\}");
+		String code = "public class Test {\\r\\nprivate String test;\\r\\n\\tclass InnerClass{\\r\\nprivate  String   test1 ; private  String   test2  ;  private String test3;\\r\\n\\t}}";
+		Matcher m = p.matcher(code);
+		
+		if (m.find()) {
+			String vars = m.group(1);
+			String[] varArr = vars.split(";");
+			for (int i = 0; i < varArr.length; i++) {
+				System.out.println(varArr[i].trim());
+			}
+			System.out.println(vars);
+		}
+	}*/
 }

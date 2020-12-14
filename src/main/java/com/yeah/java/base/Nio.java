@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -79,8 +81,26 @@ public class Nio {
 		fis.close();
 	}
 	
+	
+	
 	public static void main(String[] args) throws IOException {
 		// resolveSibling();
-		tempPath();
+		//tempPath();
+		/*String[] p1 = new String[]{"/Projects/Branches/*", "/Projects/Branches/**", "/Projects/Branches/v\\[", "/Projects/Branches/v?.?.?", "/Projects/Branches/{v1.2.3, v1.2.4, v1.2.5}/", "/Projects/Branches/v[0-9.]*"};
+		String[] path = new String[] {"/Projects/Branches/中文", "/Projects/Branches/v[/", "/Projects/Branches/v1.2.3.4/", "/Projects/Branches/v1.2.3/", "/Projects/Branches/v1.2.3/Java/", "/Projects/Branches/v1.2.3/Java/Spring/"};
+		
+		for (int i = 0; i < p1.length; i++) {
+			for (int j = 0; j < path.length; j++) {
+				PathMatcher matcher = FileSystems.getDefault().getPathMatcher( "glob:" + p1[i]);
+				if (matcher.matches(Paths.get(path[j]))) {
+					System.out.println(p1[i] + " matches " + path[j]);
+				}
+			}
+		}*/
+		
+		// 调用 new File 不会创建文件/目录
+		System.out.println(new File("/data/xxx/ddd").getCanonicalPath());
+		
+		
 	}
 }

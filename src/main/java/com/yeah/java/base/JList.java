@@ -31,5 +31,12 @@ public class JList {
 		String obj = "{\"repo_git_conf\":[{\"repotype\":\"git\",\"repo\":\"http://{{user}}:{{password}}@192.168.0.82:7070/octopus/octopus-proxy.git\",\"gitbranch\":\"release\",\"git.masterBranch\":\"\",\"git.user\":\"\",\"git.password\":\"\"}],\"remote_connect\":[{\"agenttype\":\"agentless\",\"ostype\":\"unix\",\"osport\":\"22\",\"osuser\":\"root\",\"ospwd\":\"\"}]}";
 		JSONObject json = JSONObject.fromObject(obj);
 		System.out.println(json.toString(4));
+		
+		List<Long> list1 = new ArrayList<>();
+		list1.add(1L);
+		list1.add(2L);
+		List<Long> list2 = Arrays.asList(1L);
+		list1.retainAll(list2);
+		System.out.println(list1);
 	}
 }

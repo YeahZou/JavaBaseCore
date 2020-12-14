@@ -1,5 +1,10 @@
 package com.yeah.java.base;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
 /**
  * 验证main方法能否不加 static 修饰符
  * @ClassName:  TestMain   
@@ -16,6 +21,13 @@ public class TestMain {
 	static Integer i;
 	public static void main(String[] args) {
 		System.out.println("没有 static 修饰符");
+		
+		List<String> list = Arrays.asList("1", "2");
+		list.add("3");
+		System.out.println(list);
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		System.out.println(new Date(System.currentTimeMillis() - 60 * 60 * 1000));
 		main(3);
 	}
 	
