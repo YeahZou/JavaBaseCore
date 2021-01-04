@@ -2,7 +2,10 @@ package com.yeah.java.base;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import net.sf.json.JSONObject;
 
@@ -11,32 +14,50 @@ public class JList {
 	// list.retainAll(collection)方法只保留list中满足此条件的元素：该元素在collection中存在(交集)
 	// 1、如果list为空，不管collection是什么，最终list都为空
 	// 2、如果collection为空，最终list都为空
-	public void testRetainAll() {
+	public void retainAll(Collection<String> a, Collection<String> b) {
 		List<String> stringList = new ArrayList<String>();
-		List<String> strList2 = Arrays.asList("a", "b", "c");
-		List<String> strList3 = Arrays.asList("c", "d", "e");
 		
 		stringList.add("a");
 		stringList.add("b");
-		stringList.retainAll(strList2);
-		System.out.println("retainAll strList2: " + stringList);
-		stringList.retainAll(strList3);
-		System.out.println("retainAll strList2: " + stringList);
+		System.out.println(String.format("\n%s retainAll %s: ", stringList, a));
+		stringList.retainAll(a);
+		System.out.println(stringList);
+	}
+	
+	/** 并集-交集 */
+	public void disjunction(Collection<String> a, Collection<String> b) {
+		System.out.println(String.format("\n%s disjunction %s: ", a, b));
+		System.out.println(CollectionUtils.disjunction(a, b));
+	}
+	
+	/** 求交集 */
+	public void intersection(Collection<String> a, Collection<String> b) {
+		System.out.println(String.format("\n%s intersection %s: ", a, b));
+		System.out.println(CollectionUtils.intersection(a, b));
+	}
+	
+	/** a + b (求并集) */
+	public void union(Collection<String> a, Collection<String> b) {
+		System.out.println(String.format("\n%s union %s: ", a, b));
+		System.out.println(CollectionUtils.union(a, b));
+	}
+	
+	/** a - b (只在 a 中不在 b 中)*/
+	public void subtract(Collection<String> a, Collection<String> b) {
+		System.out.println(String.format("\n%s subtract %s: ", a, b));
+		System.out.println(CollectionUtils.subtract(a, b));
 	}
 	
 	public static void main(String[] argv) {
+		List<String> a = new ArrayList<>(Arrays.asList("a", "b", "c"));
+		List<String> b = new ArrayList<>(Arrays.asList("c", "d", "e"));
 		JList jList = new JList();
-		jList.testRetainAll();
 		
-		String obj = "{\"repo_git_conf\":[{\"repotype\":\"git\",\"repo\":\"http://{{user}}:{{password}}@192.168.0.82:7070/octopus/octopus-proxy.git\",\"gitbranch\":\"release\",\"git.masterBranch\":\"\",\"git.user\":\"\",\"git.password\":\"\"}],\"remote_connect\":[{\"agenttype\":\"agentless\",\"ostype\":\"unix\",\"osport\":\"22\",\"osuser\":\"root\",\"ospwd\":\"\"}]}";
-		JSONObject json = JSONObject.fromObject(obj);
-		System.out.println(json.toString(4));
+		jList.retainAll(a, b);
 		
-		List<Long> list1 = new ArrayList<>();
-		list1.add(1L);
-		list1.add(2L);
-		List<Long> list2 = Arrays.asList(1L);
-		list1.retainAll(list2);
-		System.out.println(list1);
+		jList.disjunction(a, b);
+		jList.intersection(a, b);
+		jList.union(a, b);
+		jList.subtract(a, b);
 	}
 }
