@@ -39,9 +39,9 @@ public class JSON {
 		String str = "{\"tagentUser\":null,\"tagentPort\":null,\"ip\":null,\"tagentPassword\":null}";
 		JSONObject obj = JSONObject.fromObject(str);
 		
-		JSON.Vo vo = (JSON.Vo)JSONObject.toBean(obj, JSON.Vo.class);
+		//Vo vo = (Vo)JSONObject.toBean(obj, JSON.Vo.class);
 		System.out.println(obj);
-		System.out.println(vo);
+		//System.out.println(vo);
 
 	}
 

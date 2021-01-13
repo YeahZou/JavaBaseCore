@@ -134,6 +134,8 @@ public class FileBackedList implements AutoCloseable {
 		  System.out.println(fileList.getAt(i));
 	  }
 	  
+	  System.out.println("position 1:" + fileList.getAt(1));
+	  
 	  fileList.close();
   }
 }

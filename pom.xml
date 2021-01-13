@@ -156,5 +156,13 @@
 	    <artifactId>quartz</artifactId>
 	    <version>2.3.0</version>
 	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>fastjson</artifactId>
+	    <version>1.2.73</version>
+	</dependency>
+	
   </dependencies>
 </project>

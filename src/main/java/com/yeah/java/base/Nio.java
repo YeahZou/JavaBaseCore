@@ -25,6 +25,14 @@ public class Nio {
 		}
 	}
 	
+	/**
+	 * 
+	 * @Title: tempPath   
+	 * @Description: 创建临时文件  
+	 * @param: @throws IOException      
+	 * @return: void      
+	 * @throws
+	 */
 	private static void tempPath() throws IOException {
 		//Path tmpPath = Files.createTempDirectory("test", "xxx", "wr");
 		
@@ -48,6 +56,17 @@ public class Nio {
 		//out.println(tmpPath);
 	}
 	
+	/**
+	 * 
+	 * @Title: zipFile   
+	 * @Description: 生成zip包  
+	 * @param: @param fileToZip
+	 * @param: @param fileName
+	 * @param: @param zipOut
+	 * @param: @throws IOException      
+	 * @return: void      
+	 * @throws
+	 */
 	public static void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {
 		if (fileToZip.isHidden()) {
 			return;
@@ -81,12 +100,16 @@ public class Nio {
 		fis.close();
 	}
 	
-	
-	
-	public static void main(String[] args) throws IOException {
-		// resolveSibling();
-		//tempPath();
-		/*String[] p1 = new String[]{"/Projects/Branches/*", "/Projects/Branches/**", "/Projects/Branches/v\\[", "/Projects/Branches/v?.?.?", "/Projects/Branches/{v1.2.3, v1.2.4, v1.2.5}/", "/Projects/Branches/v[0-9.]*"};
+	/**
+	 * 
+	 * @Title: pathMatcher   
+	 * @Description: 测试通配符，apache 有相关工具方法  
+	 * @param:       
+	 * @return: void      
+	 * @throws
+	 */
+	public static void pathMatcher() {
+		String[] p1 = new String[]{"/Projects/Branches/*", "/Projects/Branches/**", "/Projects/Branches/v\\[", "/Projects/Branches/v?.?.?", "/Projects/Branches/{v1.2.3, v1.2.4, v1.2.5}/", "/Projects/Branches/v[0-9.]*"};
 		String[] path = new String[] {"/Projects/Branches/中文", "/Projects/Branches/v[/", "/Projects/Branches/v1.2.3.4/", "/Projects/Branches/v1.2.3/", "/Projects/Branches/v1.2.3/Java/", "/Projects/Branches/v1.2.3/Java/Spring/"};
 		
 		for (int i = 0; i < p1.length; i++) {
@@ -96,7 +119,10 @@ public class Nio {
 					System.out.println(p1[i] + " matches " + path[j]);
 				}
 			}
-		}*/
+		}
+	}
+	
+	public static void main(String[] args) throws IOException {
 		
 		// 调用 new File 不会创建文件/目录
 		System.out.println(new File("/data/xxx/ddd").getCanonicalPath());
