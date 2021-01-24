@@ -13,6 +13,9 @@ import java.nio.channels.FileLock;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.apache.commons.lang.StringUtils;
+import org.bouncycastle.util.Strings;
+
 import static java.lang.System.out;
 
 public class MyFile {
@@ -21,14 +24,18 @@ public class MyFile {
 		FileInputStream in = new FileInputStream("D:\\myworkspace\\test2021\\test");
 
 		try {
-			br = new LineNumberReader(new InputStreamReader(in));
+			
+			File file = new File("D:\\aaaa\\bbbb");
+			System.out.println(StringUtils.join(file.list(), ","));
+			System.out.println(file.createNewFile());
+			/*br = new LineNumberReader(new InputStreamReader(in));
 
 			// 统计行数完成，流也就结束了，如果文件比buffer大，无法再回到文件开头
 			System.out.println("File line count is: " + br.lines().count());
 			String line = null;
 			while ((line = br.readLine()) != null) {
 				System.out.println(line);
-			}
+			}*/
 		} catch(Exception e) {
 		} finally {
 			if (in != null) {
