@@ -9,6 +9,8 @@ import org.apache.commons.lang.StringUtils;
 
 import static java.lang.System.out;
 
+import java.io.File;
+
 public class RegExp {
 	public static void parseDBexecIndexFilter(String content, String opt) {
 		String filter = "";
@@ -41,6 +43,7 @@ public class RegExp {
 		System.out.println("index is " + index);
 	}
 	
+	/** 替换模板文本中所有满足正则模式的内容 */
 	public static void appendReplacement() {
 		// 竖线在正则中有特殊含义，需转义
 		String sep = "\\|";
@@ -90,8 +93,17 @@ public class RegExp {
 		System.out.println(sb.toString());
 	}
 	
-	public static void main(String[] args) {
-	    /*Pattern pattern = Pattern.compile("^[\\w\\W]+?\\s+class\\s+\\w+\\s*\\{[^\\}]+class\\s+\\w+\\s*\\{[^\\;]+?\\s+(\\w+)\\s*\\;[\\w\\W]+\\}");
+	/** windows 和 linux 的路径分割符 */
+	public static void filePathSeparator() {
+		List<String> fileList = Arrays.asList("src4", "src3/uddi-address.xml", "src5", "src5/uddi-address.xml", "uddi-address.xml");
+		for (int i = 0; i < fileList.size(); i++) {
+			System.out.println(fileList.get(i).split("[\\\\/]")[0]);
+		}
+	}
+	
+	/** 识别内部类的成员变量 */
+	public static void getInnerClassMember() {
+		Pattern pattern = Pattern.compile("^[\\w\\W]+?\\s+class\\s+\\w+\\s*\\{[^\\}]+class\\s+\\w+\\s*\\{[^\\;]+?\\s+(\\w+)\\s*\\;[\\w\\W]+\\}");
 	    Matcher matcher = pattern.matcher("public class Test {\n" +
 	            "\n" +
 	            "    private String test;\n" +
@@ -101,22 +113,11 @@ public class RegExp {
 	            "      }\n" +
 	            "}");
 
-	    if(matcher.find()){
+	    if (matcher.find()) {
 	        System.out.println(matcher.group(1));
 	    }
 	    
-	    System.out.println("xxx is: " + "".split("(\n|\r\n)")[0]);*/
-		List<String> fileList = Arrays.asList("src4", "src3/uddi-address.xml", "src5", "src5/uddi-address.xml", "uddi-address.xml");
-		for (int i = 0; i < fileList.size(); i++) {
-			System.out.println(fileList.get(i).split("[\\\\/]")[0]);
-		}
-	}
-	
-	/*public static void main(String[] args) {
-		//out.println("src/123/234/345/xxx.java".replaceAll("^.*", ""));
-		//out.println("src/123/234/345/xxx.java".replaceAll("^(.+)/[^/]+$", "$1"));
-		
-		Pattern p = Pattern.compile("^[\\w\\W]+?\\s+class\\s+\\w+\\s*\\{[^\\}]+class\\s+\\w+\\s*\\{[^\\;]+?\\s+(\\w+)\\s*\\;.*\\}");
+	    Pattern p = Pattern.compile("^[\\w\\W]+?\\s+class\\s+\\w+\\s*\\{[^\\}]+class\\s+\\w+\\s*\\{[^\\;]+?\\s+(\\w+)\\s*\\;.*\\}");
 		String code = "public class Test {\\r\\nprivate String test;\\r\\n\\tclass InnerClass{\\r\\nprivate  String   test1 ; private  String   test2  ;  private String test3;\\r\\n\\t}}";
 		Matcher m = p.matcher(code);
 		
@@ -128,5 +129,9 @@ public class RegExp {
 			}
 			System.out.println(vars);
 		}
-	}*/
+	}
+	
+	public static void main(String[] args) {
+		appendReplacement();
+	}
 }

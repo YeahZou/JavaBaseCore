@@ -6,13 +6,80 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class MyCompare {
 
 	public static void main(String[] args) {
-		testCollections();
+		//testCollections();
+		
+		newComparatorTest();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void newComparatorTest() {
+		JSONArray issueList = new JSONArray();
+		for (int i = 0; i < 12; i++) {
+			JSONObject obj = new JSONObject();
+			JSONArray commitList = new JSONArray();
+
+			if (i == 7) {
+				obj.put("issueNo", 7);
+				issueList.add(obj);
+				
+				continue;
+			}
+			
+			for (int j = 0; j < 10; j++) {
+				JSONObject commit = new JSONObject();
+				JSONObject committerDate = new JSONObject();
+				committerDate.put("time", j % 2 == 0 ? j : 10 - j);
+				
+				commit.put("committerDate", committerDate);
+				commit.put("commitId", 10 - j);
+				
+				commitList.add(commit);
+			}
+			
+			
+			
+			obj.put("issueNo", i);
+			obj.put("commitList", commitList);
+			issueList.add(obj);
+		}
+		
+		Collections.sort(issueList, new Comparator<JSONObject>() {
+            @Override
+            public int compare(JSONObject o1, JSONObject o2) {
+            	JSONArray commitList1 = o1.optJSONArray("commitList");
+            	JSONArray commitList2 = o2.optJSONArray("commitList");
+            	if (CollectionUtils.isEmpty(commitList1) && CollectionUtils.isEmpty(commitList2)) {
+            		return 0;
+            	} else if (CollectionUtils.isEmpty(commitList1)) {
+					return 1;
+				} else if (CollectionUtils.isEmpty(commitList2)) {
+            		return -1;
+            	} else {
+            		JSONObject date1 = commitList1.getJSONObject(commitList1.size() - 1).optJSONObject("committerDate");
+            		JSONObject date2 = commitList2.getJSONObject(commitList2.size() - 1).optJSONObject("committerDate");
+            		
+            		if (date1 == null && date2 == null) {
+            			return 0;
+            		} else if (date1 == null) {
+            			return 1;
+            		} else if (date2 == null) {
+            			return -1;
+            		} else {
+            			return (int) (date1.getLong("time") - date2.getLong("time"));
+            		}
+            	}
+            }
+        });
+		
+		System.out.println(issueList);
 	}
 	
 	

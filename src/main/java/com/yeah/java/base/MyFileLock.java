@@ -28,7 +28,7 @@ public class MyFileLock {
 		String rootDir = "D:\\doc\\ezdeploy发布平台\\POC";
 		Path rootPath = Paths.get(rootDir).toAbsolutePath();
 		rootDir = rootPath.toString();
-		String lockFilePath = lockPath + rootDir.replaceAll("\\" + File.separator, "_").replaceAll("\\.$", "") + ".lock";
+		String lockFilePath = rootDir.replaceAll("\\" + File.separator, "_").replaceAll("\\.$", "") + ".lock";
 		File lockFile = new File(lockFilePath);
 		@SuppressWarnings("resource")
 		FileChannel lockChannel = new RandomAccessFile(lockFile, "rw").getChannel();
@@ -69,7 +69,7 @@ public class MyFileLock {
 				lockChannel.close();
 			}
 			if (lockFile != null) {
-				lockFile.delete();
+				//lockFile.delete();
 			}
 			
 		}

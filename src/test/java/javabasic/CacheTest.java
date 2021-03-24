@@ -136,11 +136,11 @@ public class CacheTest {
 				"	\"mergeStatus\": \"merged\"\r\n" + 
 				"}]");
 		
-		Cache.writeSVNCommitsToCache(repoServiceUuid, repoUuid, srcBranch, targetBranch, leftCommitId, rightCommitId, commitArr);
+		//Cache.writeSVNCommitsToCache(repoServiceUuid, repoUuid, srcBranch, targetBranch, leftCommitId, rightCommitId, commitArr);
 	}
 	
 	public static void updateSVNCommitsToCache() throws Exception {
-		Cache.updateSVNCommitsToCache(repoServiceUuid, repoUuid, srcBranch, targetBranch, "9999", rightCommitId, content);
+		//Cache.updateSVNCommitsToCache(repoServiceUuid, repoUuid, srcBranch, targetBranch, "9999", rightCommitId, content);
 	}
 	
 	/** 缓存内容超过最新缓存文件的大小，需要生成新的缓存文件 */
@@ -161,7 +161,7 @@ public class CacheTest {
 	
 	/** 读 commit 缓存 */
 	public static void getSVNCommitsFromCache() throws IOException {
-		JSONArray caches = Cache.getSVNCommitsFromCache(repoServiceUuid, repoUuid, srcBranch, targetBranch, leftCommitId, 1);
-		System.out.println(caches);
+		//JSONArray caches = Cache.getSVNCommitsFromCache(repoServiceUuid, repoUuid, srcBranch, targetBranch, leftCommitId, 1);
+		//System.out.println(caches);
 	}
 }
