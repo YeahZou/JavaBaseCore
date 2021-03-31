@@ -1,5 +1,6 @@
 package com.yeah.java.base;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -7,9 +8,12 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
+import net.sf.json.JSONArray;
+
 import static java.lang.System.out;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 public class RegExp {
 	public static void parseDBexecIndexFilter(String content, String opt) {
@@ -131,7 +135,38 @@ public class RegExp {
 		}
 	}
 	
+	public static void issueNoGet() {
+		String issueSeparator = ",，\\s";
+		String issuePattern = "^\\s*(\\w+-\\d+)";
+		String[] commitMessages = new String[] {
+				"ISSUE-1,ISSUE-2,ISSUE-3 测试场景1，标准格式",
+				"  ISSUE-1,ISSUE-2,ISSUE-3 测试场景2，开头有空格",
+		        "  ISSUE-1,ISSUE-2,ISSUE-3   测试场景3，开头结尾有空格",
+		        "  ISSUE-1,ISSUE-2,ISSUE-3测试场景4，开头有空格，结尾没有空格",
+		        "  ISSUE-1,ISSUE-2,ISSUE-3测试场景5，开头有空格， ISSUE-10,ISSUE-20 结尾没有空格，中间有需求号",
+		        "  ISSUE-1 ,ISSUE-2, ISSUE-3测试场景6，开头有空格， ISSUE-10,ISSUE-20 结尾没有空格，中间有需求号，需求之间逗号空格",
+		        "  ISSUE-1 , ISSUE-2, ISSUE-3 ，测试场景7，开头有空格， ISSUE-10,ISSUE-20 结尾空格+中文逗号，中间有需求号，需求之间逗号空格",
+		        "  ISSUE-1 ， ISSUE-2, ISSUE-3测试场景8，开头有空格， ISSUE-10,ISSUE-20 结尾没有空格，中间有需求号，需求之间中文逗号空格",
+		        "  ISSUE-1测试场景9，一个需求",
+		};
+		
+		String finalPattern = String.format("%s([%s]|)+", issuePattern, issueSeparator);
+		Pattern pattern = Pattern.compile(finalPattern);
+		for (String commit: commitMessages) {
+			Matcher matcher = pattern.matcher(commit);
+			List<String> issueList = new ArrayList<>();
+			while(matcher.find()) {
+				String issueNo = matcher.group(1);
+				issueList.add(issueNo);
+				
+				matcher = pattern.matcher(StringUtils.substringAfter(commit, matcher.group(0)));
+			}
+			
+			System.out.println(String.format("commit message: %s, issue list: %s", commit, issueList));
+		}
+	}
+	
 	public static void main(String[] args) {
-		appendReplacement();
+		issueNoGet();
 	}
 }
