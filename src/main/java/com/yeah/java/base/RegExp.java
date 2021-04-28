@@ -145,7 +145,7 @@ public class RegExp {
 		        "  ISSUE-1,ISSUE-2,ISSUE-3测试场景4，开头有空格，结尾没有空格",
 		        "  ISSUE-1,ISSUE-2,ISSUE-3测试场景5，开头有空格， ISSUE-10,ISSUE-20 结尾没有空格，中间有需求号",
 		        "  ISSUE-1 ,ISSUE-2, ISSUE-3测试场景6，开头有空格， ISSUE-10,ISSUE-20 结尾没有空格，中间有需求号，需求之间逗号空格",
-		        "  ISSUE-1 , ISSUE-2, ISSUE-3 ，测试场景7，开头有空格， ISSUE-10,ISSUE-20 结尾空格+中文逗号，中间有需求号，需求之间逗号空格",
+		        "  ISSUE-1 , ,，ISSUE-2, ISSUE-3 ，测试场景7，开头有空格， ISSUE-10,ISSUE-20 结尾空格+中文逗号，中间有需求号，需求之间逗号空格",
 		        "  ISSUE-1 ， ISSUE-2, ISSUE-3测试场景8，开头有空格， ISSUE-10,ISSUE-20 结尾没有空格，中间有需求号，需求之间中文逗号空格",
 		        "  ISSUE-1测试场景9，一个需求",
 		};
