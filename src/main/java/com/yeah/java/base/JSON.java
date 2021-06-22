@@ -42,7 +42,8 @@ public class JSON {
 		//Vo vo = (Vo)JSONObject.toBean(obj, JSON.Vo.class);
 		System.out.println(obj);
 		//System.out.println(vo);
-
+		obj = JSONObject.fromObject("{\"name\":\"C:\\tmp\\script\\ssh.bat\",\"arguments\":\"$SUBSYSNAME\",\"interpreter\":\"cmd /c\",\"content\":\"\"``\\12fsgdf121fdffgds\\gsfg\\dfgs\"\necho \"1234\"\necho  \"sdsds\\\"\"}");
+		System.out.println(obj);
 	}
 
 }
