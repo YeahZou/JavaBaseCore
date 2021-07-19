@@ -8,13 +8,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 
-import net.sf.json.JSONArray;
-
-import static java.lang.System.out;
-
-import java.io.File;
-import java.nio.file.Paths;
-
 public class RegExp {
 	public static void parseDBexecIndexFilter(String content, String opt) {
 		String filter = "";
@@ -135,10 +128,12 @@ public class RegExp {
 		}
 	}
 	
+	// 通过不断截掉已匹配前缀的方式获取 message 中的所有需求号
 	public static void issueNoGet() {
 		String issueSeparator = ",，\\s";
 		String issuePattern = "^\\s*(\\w+-\\d+)";
 		String[] commitMessages = new String[] {
+		        "  ISSUE-1，ISSUE-10,ISSUE-20,,ISSUE-2, ISSUE-3,ISSUE-2, ISSUE-3,ISSUE-2, ISSUE-3,ISSUE-2, ISSUE-3,ISSUE-2, ISSUE-3,ISSUE-2, ISSUE-3测试场景12,很多需求需求",
 				"ISSUE-1,ISSUE-2,ISSUE-3 测试场景1，标准格式",
 				"  ISSUE-1,ISSUE-2,ISSUE-3 测试场景2，开头有空格",
 		        "  ISSUE-1,ISSUE-2,ISSUE-3   测试场景3，开头结尾有空格",
@@ -157,16 +152,73 @@ public class RegExp {
 			List<String> issueList = new ArrayList<>();
 			while(matcher.find()) {
 				String issueNo = matcher.group(1);
+				commit = StringUtils.substringAfter(commit, matcher.group(0));
 				issueList.add(issueNo);
 				
-				matcher = pattern.matcher(StringUtils.substringAfter(commit, matcher.group(0)));
+				matcher = pattern.matcher(commit);
 			}
 			
-			System.out.println(String.format("commit message: %s, issue list: %s", commit, issueList));
+			System.out.println(issueList);
+		}
+	}
+	
+	// 一次获取所有需求
+	public static void issueNoGetOnce() {
+		String issueSeparator = ",，\\s";
+		String issuePattern = "^\\s*(\\w+-\\d+)";
+		String[] commitMessages = new String[] {
+				"ISSUE-1,ISSUE-2,ISSUE-3 测试场景1，标准格式",
+				"  ISSUE-1,ISSUE-2,ISSUE-3 测试场景2，开头有空格",
+		        "  ISSUE-1,ISSUE-2,ISSUE-3   测试场景3，开头结尾有空格",
+		        "  ISSUE-1,ISSUE-2,ISSUE-3测试场景4，开头有空格，结尾没有空格",
+		        "  ISSUE-1,ISSUE-2,ISSUE-3测试场景5，开头有空格， ISSUE-10,ISSUE-20 结尾没有空格，中间有需求号",
+		        "  ISSUE-1 ,ISSUE-2, ISSUE-3测试场景6，开头有空格， ISSUE-10,ISSUE-20 结尾没有空格，中间有需求号，需求之间逗号空格",
+		        "  ISSUE-1 , ,，ISSUE-2, ISSUE-3 ，测试场景7，开头有空格， ISSUE-10,ISSUE-20 结尾空格+中文逗号，中间有需求号，需求之间逗号空格",
+		        "  ISSUE-1 ， ISSUE-2, ISSUE-3测试场景8，开头有空格， ISSUE-10,ISSUE-20 结尾没有空格，中间有需求号，需求之间中文逗号空格",
+		        "  ISSUE-1测试场景9，一个需求",
+		        "  测试场景10，没有需求",
+		        "  ",
+		        "  ISSUE-1，ISSUE-10,ISSUE-20,,ISSUE-2, ISSUE-3,ISSUE-2, ISSUE-3,ISSUE-2, ISSUE-3,ISSUE-2, ISSUE-3,ISSUE-2, ISSUE-3,ISSUE-2, ISSUE-3测试场景12,很多需求需求",
+		};
+		
+		Pattern pattern = Pattern.compile("^\\s*(([a-zA-Z]+-\\d+)([,，\\s]|)+)+");
+		for (String commit: commitMessages) {
+			Matcher matcher = pattern.matcher(commit);
+			List<String> issueList = new ArrayList<>();
+			
+			//System.out.println(commit);
+			
+			if (matcher.find() && matcher.groupCount() > 0) {
+				String issueNos = matcher.group(0).trim();
+				
+				//System.out.println(String.format("0: %s, 1: %s, 2: %s", matcher.group(0), matcher.group(1), matcher.group(2)));
+				
+				String[] issueArr = issueNos.split("[,，\\s]+");
+				if (issueArr != null && issueArr.length > 0) {
+					for (int i = 0; i < issueArr.length; i++) {
+						if ("".equals(issueArr[i])) {
+							continue;
+						}
+						
+						issueList.add(issueArr[i]);
+					}
+				}
+			}
+			System.out.println(issueList);
+			
 		}
 	}
 	
 	public static void main(String[] args) {
+		long start2 = System.currentTimeMillis();
+		issueNoGetOnce();
+		long end2 = System.currentTimeMillis();
+		System.out.println("一次性获取所有需求后再截取, 耗时：" + ( end2 - start2));
+		
+		long start = System.currentTimeMillis();
 		issueNoGet();
+		long end = System.currentTimeMillis();
+		System.out.println("反复截取 message 的方式取需求,耗时：" + (end - start));
+		
 	}
 }
