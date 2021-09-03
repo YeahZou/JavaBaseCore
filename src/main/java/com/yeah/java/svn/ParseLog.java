@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
  */
 public class ParseLog {
 
-	// svn log http://svntest.djbx.com:8080/svn/devops2/branches/branch-feature1@60 --search=ADMIN  --limit=10 -r60:81
+	// svn log http://xxxx.com:8080/svn/projects/branches/branch-feature1@60 --search=ADMIN  --limit=10 -r60:81
 	// 不能用换行符切割
 	public static List<String> logs = Arrays.asList(
 		// 常规 log
